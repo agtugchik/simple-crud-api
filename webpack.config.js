@@ -1,5 +1,6 @@
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import nodeExternals from "webpack-node-externals";
 import NodemonPlugin from "nodemon-webpack-plugin";
 
@@ -11,15 +12,10 @@ const exports = {
   },
   target: "node",
   externals: [nodeExternals()],
-  entry: join(__dirname, "./src/index.js"),
-  // output: {
-  //   filename: "main.js",
-  //   path: join(__dirname, "dist"),
-  // },
+  entry: join(__dirname, "./src/index.ts"),
   output: {
     path: join(__dirname, "dist"),
     filename: "[name].bundle.js",
-    // chunkLoading: "import",
     chunkFormat: "module",
     libraryTarget: "module",
   },
@@ -27,26 +23,12 @@ const exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              [
-                "@babel/preset-env",
-                {
-                  targets: {
-                    node: "current",
-                  },
-                },
-              ],
-            ],
-          },
-        },
+        test: /\.ts$/,
+        loader: "ts-loader",
       },
     ],
   },
-  plugins: [new NodemonPlugin()],
+  plugins: [new NodemonPlugin(), new CleanWebpackPlugin()],
 };
 
 export default exports;

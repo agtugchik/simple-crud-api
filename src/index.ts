@@ -1,12 +1,9 @@
 import { createServer } from "http";
 
 const hostname = process.env.HOST || "0.0.0.0";
-const port = process.env.PORT || 3000;
+const port = Number(process.env.PORT) || 3000;
 
 const server = createServer((req, res) => {
-  // res.statusCode = 200;
-  // res.setHeader("Content-Type", "text/plain");
-  // res.end("Hello World");
   if (req.url === "/") {
     res.end("Hello to Simple CRUD API");
   } else if (req.url === "/users") {
