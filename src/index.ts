@@ -1,13 +1,22 @@
 import { createServer } from "http";
+import Methods from "./types/methods";
+import getHandler from "./modules/getHandler";
+import postHandler from "./modules/postHandler";
+import putHandler from "./modules/putHandler";
+import deleteHandler from "./modules/deleteHandler";
 
-const hostname = process.env.HOST || "0.0.0.0";
+const hostname = process.env.HOST || "127.0.0.1";
 const port = Number(process.env.PORT) || 3000;
 
 const server = createServer((req, res) => {
-  if (req.url === "/") {
-    res.end("Hello to Simple CRUD API");
-  } else if (req.url === "/users") {
-    res.end("Users");
+  if (req.method === Methods.GET) {
+    getHandler(req, res);
+  } else if (req.method === Methods.POST) {
+    postHandler(req, res);
+  } else if (req.method === Methods.PUT) {
+    putHandler(req, res);
+  } else if (req.method === Methods.DELETE) {
+    deleteHandler;
   }
 });
 
