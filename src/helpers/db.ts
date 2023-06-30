@@ -1,4 +1,4 @@
-import dbType from "../types/dbType";
+import { dbType } from "../types/dbTypes";
 
 const db: dbType = [
   {

@@ -1,5 +1,5 @@
 import { IncomingMessage } from "http";
-import dbType from "../types/dbType";
+import { dbType, userRes } from "../types/dbTypes";
 
 const usersPathRegExp = /^\/users\//;
 const validationUuidRegExp =
@@ -15,3 +15,14 @@ export const isUserIdValid = (userId: string) =>
 
 export const getUser = (db: dbType, userId: string) =>
   db.find((elem) => elem.id === userId);
+
+export const isUserObjectValid = (obj: userRes) => {
+  const validateNameRegExp = /^[a-z0-9]{3,20}$/i;
+  return (
+    typeof obj.username === "string" &&
+    typeof obj.age === "number" &&
+    Array.isArray(obj.hobbies) &&
+    validateNameRegExp.test(obj.username) &&
+    obj.hobbies.every((v) => typeof v === "string")
+  );
+};
