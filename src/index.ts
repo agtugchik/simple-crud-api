@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import Methods from "./types/methods";
+import Methods from "./helpers/methods";
 import getHandler from "./modules/getHandler";
 import postHandler from "./modules/postHandler";
 import putHandler from "./modules/putHandler";
