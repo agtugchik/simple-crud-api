@@ -16,7 +16,8 @@ const server = createServer((req, res) => {
   } else if (req.method === Methods.PUT) {
     putHandler(req, res);
   } else if (req.method === Methods.DELETE) {
-    deleteHandler;
+    // res.end(req.url);
+    deleteHandler(req, res);
   }
 });
 

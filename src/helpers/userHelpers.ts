@@ -34,3 +34,8 @@ export const updateUser = (db: dbType, userId: string, userObject: userRes) => {
   db[index] = updatedUser;
   return updatedUser;
 };
+
+export const deleteUser = (db: dbType, userId: string) => {
+  const index = db.findIndex((e) => e.id === userId);
+  db.splice(index, 1);
+};
