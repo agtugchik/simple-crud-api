@@ -1,32 +1,17 @@
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
-import NodemonPlugin from "nodemon-webpack-plugin";
+import { merge } from "webpack-merge";
+import baseConfig from "./webpack.config.base.js";
+import devConfig from "./webpack.config.dev.js";
+import prodConfig from "./webpack.config.prod.js";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const mode = process.argv
+  .find((e) => e.startsWith("--mode="))
+  .replace("--mode=", "");
 
-const exports = {
-  resolve: {
-    extensions: [".ts", ".js"],
-  },
-  target: "node",
-  entry: join(__dirname, "./src/index.ts"),
-  output: {
-    path: join(__dirname, "dist"),
-    filename: "[name].bundle.js",
-    chunkFormat: "module",
-    libraryTarget: "module",
-  },
-  experiments: { outputModule: true },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        loader: "ts-loader",
-      },
-    ],
-  },
-  plugins: [new NodemonPlugin(), new CleanWebpackPlugin()],
-};
+const exports =
+  mode === "development"
+    ? merge(baseConfig, devConfig)
+    : mode === "production"
+    ? merge(baseConfig, prodConfig)
+    : baseConfig;
 
 export default exports;
