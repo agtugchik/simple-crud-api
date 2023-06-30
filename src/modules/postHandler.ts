@@ -3,6 +3,7 @@ import { v4 } from "uuid";
 import { isUserObjectValid } from "../helpers/userHelpers";
 import db from "../helpers/db";
 import { userDb } from "../types/dbTypes";
+import notFoundhandler from "./notFoundHandler";
 
 const postHandler = (
   req: IncomingMessage,
@@ -33,6 +34,8 @@ const postHandler = (
         );
       }
     });
+  } else {
+    notFoundhandler(res, "Non-existing POST endpoint");
   }
 };
 

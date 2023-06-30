@@ -8,7 +8,8 @@ const validationUuidRegExp =
 export const getUserId = (req: IncomingMessage) =>
   (req.url || "").replace(usersPathRegExp, "");
 
-export const haveUserId = (req: IncomingMessage) => getUserId(req).length > 0;
+export const haveUserId = (req: IncomingMessage) =>
+  usersPathRegExp.test(req.url || "") && getUserId(req).length > 0;
 
 export const isUserIdValid = (userId: string) =>
   validationUuidRegExp.test(userId);

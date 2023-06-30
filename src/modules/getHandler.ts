@@ -6,6 +6,7 @@ import {
   isUserIdValid,
   getUser,
 } from "../helpers/userHelpers";
+import notFoundhandler from "./notFoundHandler";
 
 const getHandler = (
   req: IncomingMessage,
@@ -30,14 +31,14 @@ const getHandler = (
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify(user));
     } else if (isValid && !user) {
-      res.statusCode = 404;
-      res.setHeader("Content-Type", "text/plain");
-      res.end("User doesnt exist");
+      notFoundhandler(res, "User doent exist");
     } else if (!isValid && !user) {
       res.statusCode = 400;
       res.setHeader("Content-Type", "text/plain");
       res.end("Invalid User Id");
     }
+  } else {
+    notFoundhandler(res, "Non-existing GET endpoint");
   }
 };
 
