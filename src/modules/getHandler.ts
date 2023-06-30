@@ -31,7 +31,7 @@ const getHandler = (
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify(user));
     } else if (isValid && !user) {
-      notFoundhandler(res, "User doent exist");
+      notFoundhandler(res, "User doesnt exist");
     } else if (!isValid && !user) {
       res.statusCode = 400;
       res.setHeader("Content-Type", "text/plain");
